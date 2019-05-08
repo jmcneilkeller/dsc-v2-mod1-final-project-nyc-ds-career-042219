@@ -38,6 +38,7 @@ Before:
 
 After:
 ![sqft_kde_after](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/sqft_living_log.png)
+
 ![price_kde_after](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/price_log.png)
 
 Scatter plots of the independent variables revealed a linear but possibly exponential relationship between 'price' and most of the square footage variables, specifically 'sqft_living'. It also revealed most of the variables to be categorical. It also showed some outliers for 'sqft_living', 'bedrooms' and 'bathrooms'.
