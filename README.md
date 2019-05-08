@@ -14,7 +14,7 @@ In this project I hope to answer the following questions:
 
 ## Data Cleaning
 
-The first step was to check the basic information of the dataframe. It was discovered that 'waterfront', 'view' and 'yr_renovated' were missing observations. Also both the 'date' and 'sqft_basement' variables were reporting as being object instead of integers, or in the case of date, datetime objects. 'View' had a relatively insignificant number of null observations (63), but both 'waterfront' (2376) and 'yr_renovated' (3842) were significant so I determined not to remove any observations.
+The first step was to check the basic information of the dataframe. It was discovered that 'waterfront', 'view' and 'yr_renovated' were missing observations. Also both the 'date' and 'sqft_basement' variables were reporting as being object instead of integers, or in the case of date, datetime objects. 'View' had a relatively insignificant number of null observations (63), but both 'waterfront' (2376) and 'yr_renovated' (3842) were significant so I determined not to remove any observations from those variables.
 
 * 'waterfront' was a binary (on the waterfront or not). Since the majority of observations were not on the waterfront (0), I filled in the missing values with a 0.
 * 'yr_renovated' also mostly filled 0 values (so not renovated) otherwise the renovation year. First I filled in missing values with 0 again. I considered resetting houses that hadn't been renovated in the last 30 years to 0 as well (since thats the average life of a renovation), but as renovations can last significantly longer based on materials/craftsmanship/type of work, I left those values intact. Instead I change the variable to a binary: 0 - has not been renovated or 1: has been renovated.
@@ -30,11 +30,23 @@ I then dealt with 'sqft_basement' and 'date':
 
 Plotting a KDE/histogram plot revealed a right skewedness to both the target variable ('price') and 'sqft_living'. This was corrected before modeling with a log transformation on both.
 
-IMAGE PLACEHOLDER FOR BEFORE AND AFTER
+Before:
+
+![sqft_kde_before](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/sqft_living_kde_hist.png)
+
+![price_kde_before](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/price_kde_hist.png)
+
+After:
+![sqft_kde_after](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/sqft_living_log.png)
+![price_kde_after](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/price_log.png)
 
 Scatter plots of the independent variables revealed a linear but possibly exponential relationship between 'price' and most of the square footage variables, specifically 'sqft_living'. It also revealed most of the variables to be categorical. It also showed some outliers for 'sqft_living', 'bedrooms' and 'bathrooms'.
 
-IMAGE PLACEHOLDER
+![scatter_1](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/scatter_1.png)
+![scatter_2](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/scatter_2.png)
+![scatter_3](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/scatter_3.png)
+![scatter_4](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/scatter_4.png)
+![scatter_5](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/scatter_5.png)
 
 In response I:
 
@@ -47,13 +59,16 @@ In response I:
 
 First, I split my data set into training and testing data. Checking the heatmap of my correlation, I determined that 'sqft_living', 'bathrooms' and 'grade' were the variables most highly correlated to the target variable.
 
-IMAGE PLACEHOLDER HERE
+![heatz](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/Heatmap_R2.png)
 
 I decided to model those individually first. 'sqft_above' was also highly correlated, but as I already had 'sqft_living' and it was more highly correlated when checking variables with the .corr() function, I decided to skip that one. I also decided to model 'lat' as well as it was highly correlated to 'price' but no other variables except 'zipcode'.
 
 After first trying combinations of the most highly correlated variables, along with date variables to test my hypothesis about seasons, I switched to modeling all independent variables. I removed variables that could be highly correlated until I got to my final model.
 
-IMAGE PLACEHOLDER
+![Summary_header](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/final_model_header.png)
+![Residuals](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/Residuals_hist.png)
+![price_hist](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/Final_model_price_hist.png)
+![QQ](https://github.com/jmcneilkeller/dsc-v2-mod1-final-project-nyc-ds-career-042219/blob/master/Final_Model_QQ.png)
 
 ## Questions Answered/Conclusions:
 
